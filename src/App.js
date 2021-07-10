@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
+//theme
 import theme from './theme/theme'
 import { ThemeProvider, CssBaseline } from '@material-ui/core'
-
+//routing
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-
+//components
 import Login from './components/Login'
-
+import Home from './containers/Home'
+//Spotify API
 import Spotify from 'spotify-web-api-js'
 const spotifyApi = new Spotify()
-
-//creating login URL
 const client_id = process.env.REACT_APP_SPOTIFY_ID
 const redirect_uri = 'http://localhost:3000/home'; // Your redirect uri
 const scopes = ['user-read-private', 'user-read-email', 'user-read-playback-state', 'user-read-recently-played', 'user-top-read', 'playlist-modify-public', 'playlist-modify-private', 'user-library-modify', 'playlist-read-private', 'user-library-read']
@@ -63,6 +63,9 @@ export class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" render={() => <Login handleLogin={this.handleLogin}/>}/>
+          </Switch>
+          <Switch>
+            <Route exact path='/home' render={() => <Home />}/>
           </Switch>
         </Router>
         

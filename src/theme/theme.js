@@ -35,6 +35,18 @@ const theme = createTheme({
       h3: {
         fontWeight: 600,
         letterSpacing: '-.05em'
+      },
+      h4: {
+        fontWeight: 600,
+        letterSpacing: '-.05em'
+      },
+      h5: {
+        fontWeight: 600,
+        letterSpacing: '-.05em'
+      },
+      h6: {
+        fontWeight: 600,
+        letterSpacing: '-.05em'
       }
     }
   })
