@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import theme from './theme/theme'
-import { ThemeProvider } from '@material-ui/core'
+import { ThemeProvider, CssBaseline } from '@material-ui/core'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import Login from './components/login'
+import Login from './components/Login'
 
 import Spotify from 'spotify-web-api-js'
 const spotifyApi = new Spotify()
 
 //creating login URL
 const client_id = process.env.REACT_APP_SPOTIFY_ID
-const redirect_uri = 'http://localhost:3000/webapp'; // Your redirect uri
+const redirect_uri = 'http://localhost:3000/home'; // Your redirect uri
 const scopes = ['user-read-private', 'user-read-email', 'user-read-playback-state', 'user-read-recently-played', 'user-top-read', 'playlist-modify-public', 'playlist-modify-private', 'user-library-modify', 'playlist-read-private', 'user-library-read']
 const scopesUrl = scopes.join('%20')
 
@@ -59,7 +59,13 @@ export class App extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <Login handleLogin={this.handleLogin}/>
+        <CssBaseline />
+        <Router>
+          <Switch>
+            <Route exact path="/" render={() => <Login handleLogin={this.handleLogin}/>}/>
+          </Switch>
+        </Router>
+        
      </ThemeProvider>
 
 

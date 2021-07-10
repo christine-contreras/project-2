@@ -1,9 +1,43 @@
 import React from 'react'
+import { Grid, Button, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
-export default function login(props) {
+const useStyles = makeStyles((theme) => ({
+    hero: {
+        height: '100vh',
+        // backgroundColor: theme.palette.secondary.main
+    },
+}));
+
+export default function Login(props) {
+    const styles = useStyles()
     return (
-        <div>
-            <button onClick={props.handleLogin}>Login To Spotify</button>
-        </div>
+        <Grid container direction="column" justifyContent="center" alignItems="center" className={styles.hero} color="primary">
+            <Grid item container direction="column" justifyContent="center" alignItems="center" xs={6}>
+                <Typography
+                variant="h1"
+                color="secondary"
+                align="center">
+                Spotify Movietracks 
+                </Typography>
+
+                <Typography
+                variant="h6"
+                component="p"
+                color="secondary"
+                gutterBottom>
+                It's like your favorite directors making a mix tape just for you.
+                </Typography>
+
+                <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                size="large"
+                className="btn"
+                onClick={props.handleLogin}
+                >Login To Spotify</Button>
+            </Grid>
+        </Grid>
     )
 }
