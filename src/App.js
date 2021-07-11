@@ -60,7 +60,7 @@ export class App extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        {/* <CssBaseline /> */}
+        <CssBaseline />
         <Router>
           <Layout loggedIn={this.state.loggedIn} spotifyToken={this.state.params.access_token}>
             <Switch>

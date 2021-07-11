@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './css/Appbar.css'
+import '../css/Appbar.css'
 import { AppBar, Toolbar, Typography, Avatar } from '@material-ui/core'
 
 export class Appbar extends Component {
@@ -26,13 +26,14 @@ export class Appbar extends Component {
     }
     render() {
         return (
-            <AppBar className="appbar">
+            <AppBar className="appbar" color="transparent" elevation={1}>
                 <Toolbar className="toolbar">
+                    
+                    <Avatar className="avatar"
+                    src={this.state.imageUrl}/>
                     <Typography>
                         {this.state.name}
                     </Typography>
-                    <Avatar className="avatar"
-                    src={this.state.imageUrl}/>
                 </Toolbar>
             </AppBar>
         )
