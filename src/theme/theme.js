@@ -4,7 +4,7 @@ import { createTheme } from '@material-ui/core/styles'
 //https://material-ui.com/customization/color/#color
 const theme = createTheme({
     palette: {
-        type: 'dark',
+        // type: 'dark',
         background: {
             default: '#212121'
         },
@@ -15,9 +15,9 @@ const theme = createTheme({
             contrastText: '#000',
           },
           secondary: {
-            light: '#edffff',
-            main: '#baede1',
-            dark: '#89baaf',
+            light: '#ff72d6',
+            main: '#f037a5',
+            dark: '#b90076',
             contrastText: '#000',
           },
     },

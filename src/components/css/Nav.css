@@ -1,0 +1,17 @@
+.logo-spotify{
+    fill: #f037a5;
+  }
+  
+  .MuiTypography-root.logo{
+    position: relative;
+    margin-top: -1em;
+    padding-right: 1em;
+  }
+  
+  .MuiListItemText-root .MuiListItemText-primary{
+    font-weight: 600;
+  }
+  
+  .active .MuiListItemIcon-root, .active .MuiListItemText-primary{
+    color: #f037a5;
+  }

@@ -14,12 +14,3 @@ body {
   border-radius: 500px;
 }
 
-.logo-spotify{
-  fill: #fff;
-}
-
-.MuiTypography-root.logo{
-  position: relative;
-  margin-top: -1em;
-  padding-right: 10px;
-}

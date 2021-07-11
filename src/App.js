@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 //components
 import Login from './components/Login'
 import Home from './containers/Home'
+import Layout from './containers/Layout'
 //Spotify API
 import Spotify from 'spotify-web-api-js'
 const spotifyApi = new Spotify()
@@ -59,14 +60,16 @@ export class App extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <CssBaseline />
+        {/* <CssBaseline /> */}
         <Router>
-          <Switch>
-            <Route exact path="/" render={() => <Login handleLogin={this.handleLogin}/>}/>
-          </Switch>
-          <Switch>
-            <Route exact path='/home' render={() => <Home />}/>
-          </Switch>
+          <Layout loggedIn={this.state.loggedIn} spotifyToken={this.state.params.access_token}>
+            <Switch>
+              <Route exact path="/" render={() => <Login handleLogin={this.handleLogin}/>}/>
+            </Switch>
+            <Switch>
+              <Route exact path='/home' render={() => <Home />}/>
+            </Switch>
+          </Layout>
         </Router>
         
      </ThemeProvider>

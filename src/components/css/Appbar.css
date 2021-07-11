@@ -1,0 +1,11 @@
+.appbar.MuiAppBar-root {
+    width: calc(100% - 240px);
+}
+
+.toolbar.MuiToolbar-root {
+    justify-content: flex-end;
+}
+
+.avatar.MuiAvatar-root {
+    margin: 1em;
+}
