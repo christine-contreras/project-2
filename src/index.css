@@ -8,9 +8,17 @@ body {
   display: flex;
 }
 
+.column{
+  flex-direction: column;
+}
+
 
 .MuiButton-root.btn{
   font-weight: 600;
   border-radius: 500px;
+}
+
+.padding-top{
+  padding-top: 2em;
 }
 

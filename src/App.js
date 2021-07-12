@@ -12,7 +12,7 @@ import Layout from './containers/Layout'
 import Spotify from 'spotify-web-api-js'
 const spotifyApi = new Spotify()
 const client_id = process.env.REACT_APP_SPOTIFY_ID
-const redirect_uri = 'http://localhost:3000/home'; // Your redirect uri
+const redirect_uri = 'http://localhost:3001/home'; // Your redirect uri
 const scopes = ['user-read-private', 'user-read-email', 'user-read-playback-state', 'user-read-recently-played', 'user-top-read', 'playlist-modify-public', 'playlist-modify-private', 'user-library-modify', 'playlist-read-private', 'user-library-read']
 const scopesUrl = scopes.join('%20')
 

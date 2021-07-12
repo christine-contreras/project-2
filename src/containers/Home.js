@@ -1,6 +1,6 @@
-import { TimerSharp } from '@material-ui/icons'
 import React, { Component } from 'react'
 import Search from '../components/home/Search'
+import Results from '../components/home/Results'
 const api_key = process.env.REACT_APP_IMDB_KEY
 
 export class Home extends Component {
@@ -25,8 +25,9 @@ export class Home extends Component {
     
     render() {
         return (
-            <div className="flex">
+            <div className="flex column">
                 <Search handleSearch={this.handleSearch}/>
+                <Results movies={this.state.movies}/>
             </div>
         )
     }

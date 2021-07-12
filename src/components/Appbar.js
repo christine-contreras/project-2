@@ -26,7 +26,7 @@ export class Appbar extends Component {
     }
     render() {
         return (
-            <AppBar className="appbar" color="transparent" elevation={1}>
+            <AppBar className="appbar" color="inherit" elevation={1}>
                 <Toolbar className="toolbar">
                     
                     <Avatar className="avatar"

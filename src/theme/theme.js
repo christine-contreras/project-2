@@ -20,6 +20,10 @@ const theme = createTheme({
             dark: '#b90076',
             contrastText: '#fff',
           },
+          background: {
+              default: '#212121',
+              paper: '#292929'
+          }
     },
     typography: {
       fontFamily: "Helvetica, Arial, sans-serif",
@@ -31,10 +35,12 @@ const theme = createTheme({
       },
       h2: {
         fontWeight: 600,
+        fontSize: '3.75em',
         letterSpacing: '-.05em'
       },
       h3: {
         fontWeight: 600,
+        fontSize: '3em',
         letterSpacing: '-.05em'
       },
       h4: {
