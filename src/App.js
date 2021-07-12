@@ -49,9 +49,6 @@ export class App extends Component {
 
   handleMovieSelection = (movieID) => {
     this.setState({selectedMovie: movieID})
-
-    // const history = useHistory()
-    // history.push('/movie-details')
   }
 
   componentDidMount() {

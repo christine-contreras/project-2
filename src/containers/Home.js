@@ -16,7 +16,8 @@ export class Home extends Component {
         })
         .then(res => res.json())
         .then(json => {
-            const movieList = json.results.filter(movie => movie.titleType === "movie")
+            
+            const movieList = json.results.filter(movie => movie.titleType === "movie" && ("image" in movie))
             this.setState({
                 movies: movieList
             })
