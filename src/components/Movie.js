@@ -1,8 +1,16 @@
 import React from 'react'
 import '../css/Movie.css'
+import { useHistory } from 'react-router'
 import { Card, CardMedia, CardContent, CardActions, Button ,Typography, Grid} from '@material-ui/core'
 
-export default function Movie({movie}) {
+export default function Movie({movie, handleMovieSelection}) {
+    const history = useHistory()
+
+    const handleClick = () => {
+        handleMovieSelection(movie.id)
+        history.push('/movie-details')
+
+    }
     return (
         <Grid
         item
@@ -26,7 +34,9 @@ export default function Movie({movie}) {
                     <Button
                     className="btn"
                     variant="contained"
-                    >View Soundtrack</Button>
+                    href=""
+                    onClick={handleClick}
+                    >View Soundtracks</Button>
                 </CardActions>
             </Card>
         </Grid>

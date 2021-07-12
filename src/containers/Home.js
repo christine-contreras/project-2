@@ -27,7 +27,7 @@ export class Home extends Component {
         return (
             <div className="flex column">
                 <Search handleSearch={this.handleSearch}/>
-                <Results movies={this.state.movies}/>
+                <Results handleMovieSelection={this.props.handleMovieSelection} movies={this.state.movies}/>
             </div>
         )
     }

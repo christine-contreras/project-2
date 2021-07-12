@@ -17,10 +17,11 @@ class Results extends Component {
         })
     }
     render() {
+        let movieArray = this.props.movies.length !== 0 ? this.props.movies : this.state.defaultMovies
+
         return (
             <Container className="padding-top">
                 <Typography variant="h3" component="h3" gutterBottom>
-                    
                     {
                         this.props.movies.length !== 0
                         ?
@@ -36,16 +37,10 @@ class Results extends Component {
                 justifyContent="center"
                 alignItems="stretch"
                 >
-                    {
-                        this.props.movies.length !== 0
-                        ?
-                        this.props.movies.map(movie => (
-                            <Movie key={movie.id} movie={movie}/>
-                        ))
-                        :
-                        this.state.defaultMovies.map(movie => (
-                            <Movie key={movie.id} movie={movie}/>
-                        ))
+                    { 
+                    movieArray.map(movie => (
+                    <Movie key={movie.id} handleMovieSelection={this.props.handleMovieSelection} movie={movie}/>
+                    ))
 
                     }
                 </Grid>
