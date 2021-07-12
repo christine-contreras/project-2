@@ -48,7 +48,8 @@ export class App extends Component {
   }
 
   handleMovieSelection = (movieID) => {
-    this.setState({selectedMovie: movieID})
+    const id = movieID.split('/')
+    this.setState({selectedMovie: id[2]})
   }
 
   componentDidMount() {
