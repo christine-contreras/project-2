@@ -1,35 +1,59 @@
 {
   "movieSuggestions": [
-      {
+    {
       "id": "/title/tt1022603/",
-      "image":{"height":1965,"id":"/title/tt1022603/images/rm2350025728","url":"https://m.media-amazon.com/images/M/MV5BMTk5MjM4OTU1OV5BMl5BanBnXkFtZTcwODkzNDIzMw@@._V1_.jpg","width":1275},
-      "runningTimeInMinutes":95,
-      "title":"500 Days of Summer",
-      "titleType":"movie",
-      "year":2009
+      "image": {
+        "height": 1965,
+        "id": "/title/tt1022603/images/rm2350025728",
+        "url": "https://m.media-amazon.com/images/M/MV5BMTk5MjM4OTU1OV5BMl5BanBnXkFtZTcwODkzNDIzMw@@._V1_.jpg",
+        "width": 1275
       },
-      {
-        "id":"/title/tt2015381/",
-        "image":{"height":2048,"id":"/title/tt2015381/images/rm110879,0784","url":"https://m.media-amazon.com/images/M/MV5BMTAwMjU5OTgxNjZeQTJeQWpwZ15BbWU4MDUxNDYxODEx._V1_.jpg","width":1382},
-        "runningTimeInMinutes":121,
-        "title":"Guardians of the Galaxy",
-        "titleType":"movie",
-        "year":2014
+      "runningTimeInMinutes": 95,
+      "title": "500 Days of Summer",
+      "titleType": "movie",
+      "year": 2009
+    },
+    {
+      "id": "/title/tt2015381/",
+      "image": {
+        "height": 2048,
+        "id": "/title/tt2015381/images/rm110879,0784",
+        "url": "https://m.media-amazon.com/images/M/MV5BMTAwMjU5OTgxNjZeQTJeQWpwZ15BbWU4MDUxNDYxODEx._V1_.jpg",
+        "width": 1382
       },
-      {
-        "id":"/title/tt1825683/",
-        "image":{"height":2048,"id":"/title/tt1825683/images/rm172972800","url":"https://m.media-amazon.com/images/M/MV5BMTg1MTY2MjYzNV5BMl5BanBnXkFtZTgwMTc4NTMwNDI@._V1_.jpg","width":1382},
-        "runningTimeInMinutes":134,
-        "title":"Black Panther",
-        "titleType":"movie",
-        "year":2018
-      }
+      "runningTimeInMinutes": 121,
+      "title": "Guardians of the Galaxy",
+      "titleType": "movie",
+      "year": 2014
+    },
+    {
+      "id": "/title/tt1825683/",
+      "image": {
+        "height": 2048,
+        "id": "/title/tt1825683/images/rm172972800",
+        "url": "https://m.media-amazon.com/images/M/MV5BMTg1MTY2MjYzNV5BMl5BanBnXkFtZTgwMTc4NTMwNDI@._V1_.jpg",
+        "width": 1382
+      },
+      "runningTimeInMinutes": 134,
+      "title": "Black Panther",
+      "titleType": "movie",
+      "year": 2018
+    }
   ],
   "movies": [
-     
-
+    {
+      "id": "/title/tt2015381/",
+      "image": {
+        "height": 2048,
+        "id": "/title/tt2015381/images/rm1108790784",
+        "url": "https://m.media-amazon.com/images/M/MV5BMTAwMjU5OTgxNjZeQTJeQWpwZ15BbWU4MDUxNDYxODEx._V1_.jpg",
+        "width": 1382
+      },
+      "runningTimeInMinutes": 121,
+      "title": "Guardians of the Galaxy",
+      "titleType": "movie",
+      "year": 2014
+    }
   ],
-  "playlist": [
-      
-  ]
+  "playlist": []
 }

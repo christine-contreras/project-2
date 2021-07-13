@@ -3,10 +3,11 @@ import '../../css/MovieHeader.css'
 import { Card, CardContent, Typography, CardMedia, CardActions, IconButton, Button, Tooltip} from '@material-ui/core'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
+import { TimerSharp } from '@material-ui/icons'
 
 export class Header extends Component {
     state = {
-        movieSaved: false
+        movieSave: false
     }
 
     componentDidMount(){
@@ -16,7 +17,7 @@ export class Header extends Component {
             let find = json.find(object => object.id === this.props.movie.id)
 
             this.setState({
-                movieSaved: find ? true : false
+                movieSave: find ? true : false
             })
         })
     }
@@ -24,23 +25,34 @@ export class Header extends Component {
     handleHeartClick = () => {
         this.setState(prevState => {
             return {
-                movieSaved: !prevState.movieSaved
+                movieSave: !prevState.movieSave
             }
-        })
-        //add callback to remove playlist if it's found or add playlist to json if not found
-
-        
+        }, () => this.afterHeartClickHandle()
+        )
+        //add callback to remove playlist if it's found or add playlist to json if not found  
     }
+
+    afterHeartClickHandle = () => {
+        if(this.state.movieSave) {
+            this.props.handleAddMovie(this.props.movie)
+        } 
+    }
+
     render() {
 
         return (
             <div className="movie-hero">
                 <Card className="flex">
                     <div className="movie-media">
+                        {this.props.album.length !== 0 ?
                         <CardMedia
                         image={this.props.album[0].image.url}
                         title={this.props.album[0].albumTitle}
                         />
+                        :
+                        null
+                        }
+                        
                     </div>
                     <div className="flex column">
                         <CardContent>
@@ -52,7 +64,7 @@ export class Header extends Component {
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            {this.state.movieSaved ? 
+                            {this.state.movieSave ? 
                             <Tooltip title="Remove Movie" arrow>
                                 <IconButton color="secondary"
                                 onClick={this.handleHeartClick}
@@ -70,6 +82,7 @@ export class Header extends Component {
                             </Tooltip>
                             }
                             
+                            {/* need an onclick to play first track */}
                             <Button color="secondary" variant="contained" className="btn" size="large">
                                 Listen Now
                             </Button>

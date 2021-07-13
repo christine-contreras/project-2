@@ -52,6 +52,24 @@ export class App extends Component {
     this.setState({selectedMovie: id[2]})
   }
 
+  handleAddMovie = (movie) => {
+    const configObject = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(movie)
+    }
+    fetch('http://localhost:3000/movies', configObject)
+  }
+
+  handleRemoveMovie = (movie) => {
+    const movieID = movie.id 
+
+
+  }
+
   componentDidMount() {
     if(window.location.hash) {
       this.setState({
@@ -84,7 +102,7 @@ export class App extends Component {
               <Route exact path="/home" render={(routerProps) => <Home {...routerProps} handleMovieSelection={this.handleMovieSelection}/>}/>
             </Switch>
             <Switch>
-              <Route exact path='/movie-details' render={(routerProps) => <Details {...routerProps} movieID={this.state.selectedMovie}/>}/>
+              <Route exact path='/movie-details' render={(routerProps) => <Details {...routerProps} movieID={this.state.selectedMovie} handleAddMovie={this.handleAddMovie}/>}/>
             </Switch>
           </Layout>
         </Router>
