@@ -2,13 +2,9 @@ import React, { Component } from 'react'
 //theme
 import theme from './theme/theme'
 import { ThemeProvider, CssBaseline } from '@material-ui/core'
-//routing
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 //components
-import Layout from './containers/Layout'
 import Login from './components/Login'
-import Home from './containers/Home'
-import Details from './containers/Details'
+import Site from './containers/Site'
 //Spotify API
 import Spotify from 'spotify-web-api-js'
 const spotifyApi = new Spotify()
@@ -25,7 +21,6 @@ export class App extends Component {
     this.state = {
       params: {},
       loggedIn: false,
-      selectedMovie: ''
     }
 
     if(this.state.params.access_token) {
@@ -47,29 +42,6 @@ export class App extends Component {
     window.location = `https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=&${scopesUrl}&response_type=token&show_dialog-true`
   }
 
-  handleMovieSelection = (movieID) => {
-    const id = movieID.split('/')
-    this.setState({selectedMovie: id[2]})
-  }
-
-  handleAddMovie = (movie) => {
-    const configObject = {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(movie)
-    }
-    fetch('http://localhost:3000/movies', configObject)
-  }
-
-  handleRemoveMovie = (movie) => {
-    const movieID = movie.id 
-
-
-  }
-
   componentDidMount() {
     if(window.location.hash) {
       this.setState({
@@ -86,27 +58,10 @@ export class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Router>
-          <Layout loggedIn={this.state.loggedIn} spotifyToken={this.state.params.access_token}>
-            <Switch>
-              <Route exact path="/">
-                {this.state.loggedIn ? <Redirect to="/home" /> : <Login handleLogin={this.handleLogin}/>}
-              </Route>
-              {/* <Route exact path="/" render={() => <Login handleLogin={this.handleLogin}/>}/> */}
-            </Switch>
-            <Switch>
-            {/* <Route exact path="/home">
-                {this.state.loggedIn ? <Home handleMovieSelection={this.handleMovieSelection}/> : <Redirect to="/" />}
-              </Route> */}
-
-              <Route exact path="/home" render={(routerProps) => <Home {...routerProps} handleMovieSelection={this.handleMovieSelection}/>}/>
-            </Switch>
-            <Switch>
-              <Route exact path='/movie-details' render={(routerProps) => <Details {...routerProps} movieID={this.state.selectedMovie} handleAddMovie={this.handleAddMovie}/>}/>
-            </Switch>
-          </Layout>
-        </Router>
-        
+        {this.state.loggedIn ? 
+        <Site spotifyToken={this.state.params.access_token}/> 
+        : 
+        <Login handleLogin={this.handleLogin}/>}
      </ThemeProvider>
 
 

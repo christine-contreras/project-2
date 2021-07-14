@@ -31,8 +31,16 @@ export class Details extends Component {
     render() {
         return (
             <div className="flex column">
-                <Header movie={this.state.movieInfo} album={this.state.albumInfo} handleAddMovie={this.props.handleAddMovie}/>
-                <Playlist album={this.state.albumInfo} soundtracks={this.state.soundtracks}/>
+                <Header
+                movie={this.state.movieInfo}
+                album={this.state.albumInfo}
+                movieIsSaved={this.props.movieIsSaved}
+                handleAddMovie={this.props.handleAddMovie}
+                handleRemoveMovie={this.props.handleRemoveMovie}/>
+
+                <Playlist
+                album={this.state.albumInfo}
+                soundtracks={this.state.soundtracks}/>
             </div>
         )
     }

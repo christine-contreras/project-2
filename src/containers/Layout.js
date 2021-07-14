@@ -15,27 +15,18 @@ const useStyles = makeStyles((theme) => {
     }
 })
 
-
-
 export default function Layout(props) {
     const styles = useStyles()
     return (
         <div className="flex">
-                {props.loggedIn ? 
-                <Nav />
-                :
-                null}
+            <Nav /> 
+            <Appbar spotifyToken={props.spotifyToken}/>
 
-                {props.loggedIn ? 
-                <Appbar spotifyToken={props.spotifyToken}/>
-                :
-                null}
-                
-                <div className={styles.page}>
-                    {/* output children  wrapped in layout on the App.js */}
-                    {props.children}
-                 </div>
-                
+            <div className={styles.page}>
+                {/* output children  wrapped in layout on the App.js */}
+                {props.children}
             </div>
+                
+        </div>
     )
 }

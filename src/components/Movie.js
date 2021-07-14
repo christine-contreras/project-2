@@ -7,7 +7,7 @@ export default function Movie({movie, handleMovieSelection}) {
     const history = useHistory()
 
     const handleClick = () => {
-        handleMovieSelection(movie.id)
+        handleMovieSelection(movie)
         history.push('/movie-details')
 
     }
@@ -34,7 +34,6 @@ export default function Movie({movie, handleMovieSelection}) {
                     <Button
                     className="btn"
                     variant="contained"
-                    href=""
                     onClick={handleClick}
                     >View Soundtracks</Button>
                 </CardActions>

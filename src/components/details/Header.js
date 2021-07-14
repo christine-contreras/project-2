@@ -6,36 +6,13 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import { TimerSharp } from '@material-ui/icons'
 
 export class Header extends Component {
-    state = {
-        movieSave: false
-    }
-
-    componentDidMount(){
-        fetch('http://localhost:3000/movies')
-        .then(res => res.json())
-        .then(json => {
-            let find = json.find(object => object.id === this.props.movie.id)
-
-            this.setState({
-                movieSave: find ? true : false
-            })
-        })
-    }
 
     handleHeartClick = () => {
-        this.setState(prevState => {
-            return {
-                movieSave: !prevState.movieSave
-            }
-        }, () => this.afterHeartClickHandle()
-        )
-        //add callback to remove playlist if it's found or add playlist to json if not found  
-    }
-
-    afterHeartClickHandle = () => {
-        if(this.state.movieSave) {
+        if(this.props.movieIsSaved) {
+            this.props.handleRemoveMovie(this.props.movie)
+        } else {
             this.props.handleAddMovie(this.props.movie)
-        } 
+        }
     }
 
     render() {
@@ -64,7 +41,7 @@ export class Header extends Component {
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            {this.state.movieSave ? 
+                            {this.props.movieIsSaved ? 
                             <Tooltip title="Remove Movie" arrow>
                                 <IconButton color="secondary"
                                 onClick={this.handleHeartClick}
