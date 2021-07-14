@@ -40,6 +40,23 @@
       "year": 2018
     }
   ],
-  "movies": [],
+  "movies": [
+    {
+      "id": 29,
+      "info": {
+        "id": "/title/tt2015381/",
+        "image": {
+          "height": 2048,
+          "id": "/title/tt2015381/images/rm1108790784",
+          "url": "https://m.media-amazon.com/images/M/MV5BMTAwMjU5OTgxNjZeQTJeQWpwZ15BbWU4MDUxNDYxODEx._V1_.jpg",
+          "width": 1382
+        },
+        "runningTimeInMinutes": 121,
+        "title": "Guardians of the Galaxy",
+        "titleType": "movie",
+        "year": 2014
+      }
+    }
+  ],
   "playlist": []
 }

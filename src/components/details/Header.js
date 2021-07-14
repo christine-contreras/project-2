@@ -3,7 +3,6 @@ import '../../css/MovieHeader.css'
 import { Card, CardContent, Typography, CardMedia, CardActions, IconButton, Button, Tooltip} from '@material-ui/core'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
-import { TimerSharp } from '@material-ui/icons'
 
 export class Header extends Component {
 

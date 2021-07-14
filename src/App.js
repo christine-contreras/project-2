@@ -6,8 +6,8 @@ import { ThemeProvider, CssBaseline } from '@material-ui/core'
 import Login from './components/Login'
 import Site from './containers/Site'
 //Spotify API
-import Spotify from 'spotify-web-api-js'
-const spotifyApi = new Spotify()
+// import Spotify from 'spotify-web-api-js'
+// const spotifyApi = new Spotify()
 const client_id = process.env.REACT_APP_SPOTIFY_ID
 const redirect_uri = 'http://localhost:3001/home'; // Your redirect uri
 const scopes = ['user-read-private', 'user-read-email', 'user-read-playback-state', 'user-read-recently-played', 'user-top-read', 'playlist-modify-public', 'playlist-modify-private', 'user-library-modify', 'playlist-read-private', 'user-library-read']
@@ -19,13 +19,12 @@ export class App extends Component {
     super()
 
     this.state = {
-      params: {},
-      loggedIn: false,
+      loggedIn: window.localStorage.getItem('access_token') ? true : false,
     }
 
-    if(this.state.params.access_token) {
-      spotifyApi.setAccessToken(this.state.params.access_token)
-    }
+    // if(this.state.params.access_token) {
+    //   spotifyApi.setAccessToken(this.state.params.access_token)
+    // }
   }
 
   getHashParams() {
@@ -44,10 +43,11 @@ export class App extends Component {
 
   componentDidMount() {
     if(window.location.hash) {
-      this.setState({
-        params: this.getHashParams(),
-        loggedIn: true
-      })
+      const params = this.getHashParams()
+
+      window.localStorage.clear()
+      window.localStorage.setItem('access_token', params.access_token)
+      window.localStorage.setItem('expires_in', params.expires_in)
     }
     
 
@@ -59,7 +59,7 @@ export class App extends Component {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {this.state.loggedIn ? 
-        <Site spotifyToken={this.state.params.access_token}/> 
+        <Site spotifyToken={window.localStorage.getItem('access_token')}/> 
         : 
         <Login handleLogin={this.handleLogin}/>}
      </ThemeProvider>

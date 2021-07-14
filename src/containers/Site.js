@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 //routing
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 //components
 import Layout from './Layout'
 import Home from './Home'
@@ -11,6 +11,7 @@ export class Site extends Component {
   constructor(){
     super()
     this.state = {
+      id: Math.floor(Math.random() * 1000),
       selectedMovie: [],
       selectedMovieId: [],
       savedMovies: [],
@@ -30,6 +31,7 @@ export class Site extends Component {
   //details functions
   handleAddMovie = (movie) => {
     const formData = {
+        id: this.state.id,
         info: movie
     }
     const configObject = {
@@ -43,8 +45,10 @@ export class Site extends Component {
     fetch('http://localhost:3000/movies', configObject)
 
     this.setState(prevState => ({
-        savedMovies: [...prevState.savedMovies, movie]
+        savedMovies: [...prevState.savedMovies, formData],
+        id: prevState.id + 1
     }))
+    
   }
 
   handleRemoveMovie = (removeMovie) => {
@@ -54,7 +58,7 @@ export class Site extends Component {
 
     fetch(`http://localhost:3000/movies/${deletedMovie.id}`, {
         method: 'DELETE'
-    })
+    })    
 
     this.setState({savedMovies: newMovies})
   }
@@ -67,12 +71,23 @@ export class Site extends Component {
       })
   }
 
+  checkMovie = () => {
+      if(this.state.savedMovies.length !== 0) {
+        let movieSaved = this.state.savedMovies.find(movie => movie.info.id === this.state.selectedMovie.id)
+
+        if(movieSaved === undefined) {
+            return false
+        } else {
+            return true 
+        }
+
+      } else {
+          return false
+      }
+  }
 
 
   render() {
-    //if undefined: movie isn't saved (false) : movie already saved (true)
-    let checkMovie = this.state.savedMovies.find(movie => movie.info.id === this.state.selectedMovie.id)
-
     return (
         <Router>
           <Layout spotifyToken={this.props.spotifyToken}>
@@ -83,7 +98,7 @@ export class Site extends Component {
               <Route exact path='/movie-details' render={() => (
                   <Details
                   movieID={this.state.selectedMovieId}
-                  movieIsSaved={checkMovie === undefined ? false : true}
+                  movieIsSaved={this.checkMovie()}
                   handleAddMovie={this.handleAddMovie}
                   handleRemoveMovie={this.handleRemoveMovie}/>
               )}/>
