@@ -29,13 +29,16 @@ export class Site extends Component {
 
   //details functions
   handleAddMovie = (movie) => {
+    const formData = {
+        info: movie
+    }
     const configObject = {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify(movie)
+      body: JSON.stringify(formData)
     }
     fetch('http://localhost:3000/movies', configObject)
 
@@ -44,19 +47,16 @@ export class Site extends Component {
     }))
   }
 
-  handleRemoveMovie = (deleteMovie) => {
-    let newMovies = this.state.savedMovies.filter(movie => deleteMovie !== movie)
+  handleRemoveMovie = (removeMovie) => {
+    let newMovies = this.state.savedMovies.filter(movie => removeMovie.id !== movie.info.id)
+
+    let deletedMovie = this.state.savedMovies.find(movie => movie.info.id === removeMovie.id)
+
+    fetch(`http://localhost:3000/movies/${deletedMovie.id}`, {
+        method: 'DELETE'
+    })
+
     this.setState({savedMovies: newMovies})
-
-    const configObject = {
-        method: 'PUT',
-        headers: {
-        'content-type': 'application/json'
-        },
-        body: JSON.stringify(this.state.savedMovies)
-    }
-
-    fetch('http://localhost:3000/movies', configObject)
   }
 
   componentDidMount() {
@@ -71,7 +71,7 @@ export class Site extends Component {
 
   render() {
     //if undefined: movie isn't saved (false) : movie already saved (true)
-    let checkMovie = this.state.savedMovies.find(movie => movie.id === this.state.selectedMovie.id)
+    let checkMovie = this.state.savedMovies.find(movie => movie.info.id === this.state.selectedMovie.id)
 
     return (
         <Router>
