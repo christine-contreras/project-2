@@ -23,7 +23,7 @@ export class Playlist extends Component {
 
         return (
             <div style={{ height: '50vh', width: 1000, margin: 'auto' }}>
-                Playlist
+
             {this.props.soundtracks.length !== 0
             ?
             <DataGrid

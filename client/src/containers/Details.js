@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Header from '../components/details/Header'
 import Playlist from '../components/details/Playlist'
 import Player from '../components/Player'
+import CreatePlaylistModal from '../components/details/CreatePlaylistModal'
+import AddToPlaylistModal from '../components/details/AddToPlaylistModal'
 
 const api_key = process.env.REACT_APP_IMDB_KEY
 
@@ -18,7 +20,14 @@ export class Details extends Component {
         albumInfo : [],
         spotifyTracks: [],
         currentSongUris: [],
-        playing: false
+        playing: false,
+        usersPlaylists: [],
+        selectedPlaylist: "",
+        addToPlaylist: false
+    }
+
+    componentDidMount() {
+        this.fetchMovieApi() 
     }
 
     fetchMovieApi = () => {
@@ -40,7 +49,7 @@ export class Details extends Component {
 
             
 
-            this.fetchSpotifyApi(fixTrackTitles)
+            this.fetchSpotifyApiForSoundtracks(fixTrackTitles)
 
             this.setState({
                 movieInfo: json.base,
@@ -51,7 +60,7 @@ export class Details extends Component {
     }
 
 
-    fetchSpotifyApi = (soundtracks) => {
+    fetchSpotifyApiForSoundtracks = (soundtracks) => {
 
         soundtracks.forEach(track => {
             fetch(`https://api.spotify.com/v1/search?q=track:${track.name.replace(' ', '%20')}%20artist:${track.products[0].artist.replace(' ', '%20')}&type=track&limit=5`, {
@@ -88,14 +97,8 @@ export class Details extends Component {
         })
     }
 
-    componentDidMount() {
-
-        this.fetchMovieApi()
-        
-    }
-
-
-
+    
+    //header actions
     handlePlaySong = (spotifyUri) => {
         this.setState({currentSongUris: spotifyUri})
     }
@@ -103,6 +106,54 @@ export class Details extends Component {
     handlePlaySoundtrack = () => {
         this.setState({playing: true})
     }
+
+
+    handleGetPlaylistsFromSpotify = () => {
+        fetch('https://api.spotify.com/v1/me/playlists?limit=50', {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                'Authorization': 'Bearer ' + this.props.spotifyToken
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            let playlists = json.items.filter(item => item.owner.display_name === this.props.user.name)
+
+            this.setState({
+                usersPlaylists: playlists,
+                addToPlaylist: true
+            })
+        })
+    }
+
+    //model actions
+    handleCloseModal = () => {
+        this.setState({
+            addToPlaylist: false
+        })
+    }
+
+    handleAddSongsToPlaylist = (playlistLink) => {
+
+        const validSpotifyUris = this.state.currentSongUris.filter(uri => uri !== undefined)
+        const configData = {
+            "uris": validSpotifyUris
+        }
+
+        fetch(`${playlistLink}`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                'Authorization': 'Bearer ' + this.props.spotifyToken
+            },
+            body: JSON.stringify(configData)
+        })
+        .then(response => response.json())
+        .then(console.log('playlist posted!'))
+    }
+
 
     render() {
 
@@ -119,6 +170,7 @@ export class Details extends Component {
                     handleAddMovie={this.props.handleAddMovie}
                     handleRemoveMovie={this.props.handleRemoveMovie}
                     handlePlaySoundtrack={this.handlePlaySoundtrack}
+                    handleGetPlaylistsFromSpotify={this.handleGetPlaylistsFromSpotify}
                     />
 
                     <Playlist
@@ -133,6 +185,17 @@ export class Details extends Component {
                 currentSongUri={validSpotifyUris}
                 playing={this.state.playing}
                 />
+                
+
+                {this.state.addToPlaylist ? 
+                <AddToPlaylistModal
+                handleCloseModal={this.handleCloseModal} 
+                handleAddSongsToPlaylist={this.handleAddSongsToPlaylist}
+                playlists={this.state.usersPlaylists}
+                
+                /> 
+                : null}
+
             </>
             
         )

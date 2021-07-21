@@ -20,7 +20,7 @@ export default function Layout(props) {
     return (
         <div className="flex">
             <Nav /> 
-            <Appbar spotifyToken={props.spotifyToken}/>
+            <Appbar user={props.user}/>
 
             <div className={styles.page}>
                 {/* output children  wrapped in layout on the App.js */}

@@ -1,0 +1,8 @@
+.playlist-media .MuiCardMedia-root{
+    width: 100px;
+    height: 100px;
+}
+
+.playlists .MuiPaper-root{
+    padding-bottom: 2em;
+}

@@ -10,7 +10,7 @@
     margin: .75em;
 }
 
-.menu .MuiMenu-paper{
+#simple-menu .MuiMenu-paper{
     right: 2%;
     top: 5% !important;
     left: auto !important;

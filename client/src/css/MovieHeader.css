@@ -2,6 +2,7 @@
     width: 95%;
     max-width: 1000px;
     margin: auto;
+    position: relative;
 }
 
 .movie-media .MuiCardMedia-root{
@@ -11,5 +12,17 @@
 
 .movie-hero .MuiIconButton-colorSecondary{
     border: 1px solid;
+}
+
+.movie-hero .playlist-btn{
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+#playlist-menu .MuiMenu-paper{
+    right: 4.75%;
+    top: 38% !important;
+    left: auto !important;
 }
 

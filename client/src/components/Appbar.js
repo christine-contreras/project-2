@@ -10,36 +10,7 @@ const handleLogout = () => {
 
 export class Appbar extends Component {
     state = {
-        name: '',
-        imageUrl: '',
         anchorEl: null
-    }
-
-    componentDidMount() {
-        this.fetchSpotifyProfile()
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.spotifyToken !== prevProps.spotifyToken) {
-            this.fetchSpotifyProfile()
-        }
-    }
-
-    fetchSpotifyProfile = () => {
-        fetch('https://api.spotify.com/v1/me', {
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                'Authorization': 'Bearer ' + this.props.spotifyToken
-            }
-        })
-        .then(response => response.json())
-        .then(json => {
-            this.setState({
-                name: json.display_name,
-                imageUrl: json.images ?  json.images[0].url : ''
-            })
-        })
     }
 
 
@@ -60,15 +31,19 @@ export class Appbar extends Component {
             <AppBar className="appbar" color="inherit" elevation={1}>
             <Toolbar className="toolbar">
                 
+                {this.props.user.length !== 0 ?
                 <Avatar className="avatar"
-                src={this.state.imageUrl}/>
+                src={this.props.user.imageUrl}/>
+                :
+                null
+                }
 
                 <Button
                 aria-controls="simple-menu"
                 aria-haspopup="true"
                 endIcon={<ExpandMoreIcon />}
                 onClick={this.handleMenuClick}>
-                {this.state.name}
+                {this.props.user.name}
                 </Button>
                     <Menu
                     className="menu"

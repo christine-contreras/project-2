@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import '../../css/MovieHeader.css'
-import { Card, CardContent, Typography, CardMedia, CardActions, IconButton, Button, Tooltip} from '@material-ui/core'
+import { Card, CardContent, Typography, CardMedia, CardActions, IconButton, Button, Tooltip, Menu, MenuItem} from '@material-ui/core'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
+import AddIcon from '@material-ui/icons/Add'
 
 export class Header extends Component {
+    state = {
+        anchorEl: null
+    }
 
     handleHeartClick = () => {
         if(this.props.movieIsSaved) {
@@ -12,6 +16,16 @@ export class Header extends Component {
         } else {
             this.props.handleAddMovie(this.props.movie)
         }
+    }
+
+    handleMenuClick = (event) => {
+        this.setState({
+            anchorEl: event.currentTarget
+        })
+    }
+
+    handleClose = () => {
+        this.setState({anchorEl: null})
     }
 
     render() {
@@ -58,7 +72,6 @@ export class Header extends Component {
                             </Tooltip>
                             }
                             
-                            {/* need an onclick to play first track */}
                             <Button
                             onClick={this.props.handlePlaySoundtrack}
                             color="secondary"
@@ -66,6 +79,26 @@ export class Header extends Component {
                             className="btn" size="large">
                                 Listen Now
                             </Button>
+
+                            <Button
+                            aria-controls="playlist-menu"
+                            aria-haspopup="true"
+                            className="btn playlist-btn" size="large"
+                            endIcon={<AddIcon />}
+                            onClick={this.handleMenuClick}>
+                            Create Playlist
+                            </Button>
+                                <Menu
+                                className="menu"
+                                id="playlist-menu"
+                                anchorEl={this.state.anchorEl}
+                                keepMounted
+                                open={Boolean(this.state.anchorEl)}
+                                onClose={this.handleClose}
+                                >
+                                    <MenuItem>Create New Playlist</MenuItem>
+                                    <MenuItem onClick={this.props.handleGetPlaylistsFromSpotify}>Add To Existing Playlist</MenuItem>
+                                </Menu>
                         </CardActions>
                     </div>
                 </Card>

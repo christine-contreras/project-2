@@ -10,6 +10,7 @@ export class Site extends Component {
   constructor(){
     super()
     this.state = {
+      user: [],
       id: Math.floor(Math.random() * 1000),
       selectedMovie: [],
       selectedMovieId: [],
@@ -62,40 +63,72 @@ export class Site extends Component {
     this.setState({savedMovies: newMovies})
   }
 
+
+  checkToSeeIfMovieIsSaved = () => {
+    if(this.state.savedMovies.length !== 0) {
+      let movieSaved = this.state.savedMovies.find(movie => movie.info.id === this.state.selectedMovie.id)
+
+      if(movieSaved === undefined) {
+          return false
+      } else {
+          return true 
+      }
+
+    } else {
+        return false
+    }
+}
+
   componentDidMount() {
       fetch('http://localhost:3000/movies')
       .then(res => res.json())
       .then(json => {
           this.setState({savedMovies: json})
       })
+
+      this.fetchSpotifyApiForUser()
   }
 
-  checkToSeeIfMovieIsSaved = () => {
-      if(this.state.savedMovies.length !== 0) {
-        let movieSaved = this.state.savedMovies.find(movie => movie.info.id === this.state.selectedMovie.id)
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.user !== prevState.user) {
+      this.fetchSpotifyApiForUser()
+    }
+  }
 
-        if(movieSaved === undefined) {
-            return false
-        } else {
-            return true 
-        }
 
-      } else {
-          return false
-      }
+
+  fetchSpotifyApiForUser = () => {
+    fetch('https://api.spotify.com/v1/me', {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                'Authorization': 'Bearer ' + this.props.spotifyToken
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({
+                user: {
+                  name: json.display_name,
+                  imageUrl: json.images ?  json.images[0].url : ''
+                }
+                
+            })
+        })
   }
 
 
   render() {
     return (
         <Router>
-          <Layout spotifyToken={this.props.spotifyToken}>
+          <Layout user={this.state.user}>
             <Switch>
               <Route exact path="/home" render={() => <Home handleMovieSelection={this.handleMovieSelection}/>}/>
             </Switch>
             <Switch>
               <Route exact path='/movie-details' render={() => (
                   <Details
+                  user={this.state.user}
                   spotifyToken={this.props.spotifyToken}
                   movieID={this.state.selectedMovieId}
                   movieIsSaved={this.checkToSeeIfMovieIsSaved()}
