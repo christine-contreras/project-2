@@ -19,16 +19,16 @@ export default function App() {
   const [expiresIn, setExpiresIn] = useState()
 
   useEffect(() => {
-    console.log(code)
+    // console.log(code)
     
     axios
       .post("http://localhost:8000/login", { code })
       .then((response) => {
 
         // If success then cut the code string from the URL and execute the other thing
-        // window.history.pushState({}, null, "/")
+        window.history.pushState({}, null, "/")
 
-        console.log(response.data);
+        // console.log(response.data);
         setRefreshToken(response.data.refreshToken)
         setExpiresIn(response.data.expiresIn)
         setAccessToken(response.data.accessToken)
@@ -38,7 +38,7 @@ export default function App() {
       .catch((err) => {
         console.log(err)
         //   If fail redirect to home page - Login page
-        //window.location = "/"
+        // window.location = "/"
       })
   }, [code])
 

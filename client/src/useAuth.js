@@ -14,7 +14,7 @@ export default function useAuth(code) {
         // If success then cut the code string from the URL and execute the other thing
         // window.history.pushState({}, null, "/")
 
-        console.log(response.data);
+        // console.log(response.data);
         setRefreshToken(response.data.refreshToken)
         setExpiresIn(response.data.expiresIn)
         setAccessToken(response.data.accessToken)
@@ -24,7 +24,7 @@ export default function useAuth(code) {
       .catch((err) => {
         console.log(err)
         //   If fail redirect to home page - Login page
-        //window.location = "/"
+        window.location = "/"
       })
   }, [code])
 
