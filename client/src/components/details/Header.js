@@ -59,7 +59,11 @@ export class Header extends Component {
                             }
                             
                             {/* need an onclick to play first track */}
-                            <Button color="secondary" variant="contained" className="btn" size="large">
+                            <Button
+                            onClick={this.props.handlePlaySoundtrack}
+                            color="secondary"
+                            variant="contained"
+                            className="btn" size="large">
                                 Listen Now
                             </Button>
                         </CardActions>

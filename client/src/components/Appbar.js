@@ -1,44 +1,46 @@
-import React, { useEffect, useState } from "react"
+import React, { Component } from 'react'
 import '../css/Appbar.css'
 import { AppBar, Toolbar, Typography, Avatar } from '@material-ui/core'
 
-import useAuth from '../useAuth'
-import SpotifyWebApi from 'spotify-web-api-node'
 
-const id = process.env.REACT_APP_SPOTIFY_ID
 
-const spotifyApi = new SpotifyWebApi({
-  clientId: id,
-});
+export class Appbar extends Component {
+    state = {
+        name: '',
+        imageUrl: ''
+    }
 
-export default function Appbar({ spotifyToken }) {
-    const accessToken = useAuth(spotifyToken)
-    const [name, setName] = useState('')
-    const [imageUrl, setImageUrl] = useState('')
-
-    useEffect(() => {
-        if (!accessToken) return;
-    
-        // Setting Up the spotifyApi with AccessToken so that we can use its functions anywhere in the component without setting AccessToken value again & again. 
-        spotifyApi.setAccessToken(accessToken);
-    
-        // Get user details with help of getMe() function
-        spotifyApi.getMe().then(data => {
-          setName(data.body.display_name)
-          setImageUrl(data.body.images[0].url)
-        })
-      }, [accessToken]);
-
-    return (
-        <AppBar className="appbar" color="inherit" elevation={1}>
+    componentDidMount() {
+        fetch('https://api.spotify.com/v1/me', {
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          'Authorization': 'Bearer ' + this.props.spotifyToken
+        }
+      })
+      .then(response => response.json())
+      .then(json => {
+          this.setState({
+              name: json.display_name,
+              imageUrl: json.images[0].url
+          })
+      })
+    }
+    render() {
+        return (
+            <AppBar className="appbar" color="inherit" elevation={1}>
             <Toolbar className="toolbar">
                 
                 <Avatar className="avatar"
-                src={imageUrl}/>
+                src={this.state.imageUrl}/>
                 <Typography>
-                    {name}
+                    {this.state.name}
                 </Typography>
             </Toolbar>
         </AppBar>
-    )
+        )
+    }
 }
+
+export default Appbar
+

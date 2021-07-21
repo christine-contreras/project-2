@@ -12,34 +12,34 @@ app.get('/', (req, res) => {
   console.log('Hello World!')
 })
 
-app.post('/refresh', (req, res) => {
-  const refreshToken = req.body.refreshToken
+// app.post('/refresh', (req, res) => {
+//   const refreshToken = req.body.refreshToken
 
-  const credentials = {
-    clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: process.env.REDIRECT_URI,
-    refreshToken
-  }
+//   const credentials = {
+//     clientId: process.env.CLIENT_ID,
+//     clientSecret: process.env.CLIENT_SECRET,
+//     redirectUri: process.env.REDIRECT_URI,
+//     refreshToken
+//   }
 
-  let spotifyApi = new spotifyWebApi(credentials)
+//   let spotifyApi = new spotifyWebApi(credentials)
 
-  spotifyApi.refreshAccessToken().then(
-    data => {
-      res.json({
-        accessToken : data.body.access_token,
-        expiresIn: data.body.expires_in
-    }) 
+//   spotifyApi.refreshAccessToken().then(
+//     data => {
+//       res.json({
+//         accessToken : data.body.access_token,
+//         expiresIn: data.body.expires_in
+//     }) 
   
-      // Save the access token so that it's used in future calls
-      //spotifyApi.setAccessToken(data.body['access_token']);
-    })
-    .catch(err => {
-      console.log(err);
-      res.sendStatus(400)
-  })
+//       // Save the access token so that it's used in future calls
+//       //spotifyApi.setAccessToken(data.body['access_token']);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.sendStatus(400)
+//   })
 
-})
+// })
 
 app.post('/login', (req,res) => {
   const credentials = {
@@ -60,8 +60,8 @@ app.post('/login', (req,res) => {
         // Returning the User's AccessToken in the json formate  
         res.json({
             accessToken : data.body.access_token,
-            refreshToken : data.body.refresh_token,
-            expiresIn: data.body.expires_in
+            // refreshToken : data.body.refresh_token,
+            // expiresIn: data.body.expires_in
         }) 
     })
     .catch((err) => {

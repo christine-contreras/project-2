@@ -12,43 +12,46 @@ export default function useAuth(code) {
       .then((response) => {
 
         // If success then cut the code string from the URL and execute the other thing
-        window.history.pushState({}, null, "/")
+        // window.history.pushState({}, null, "/")
 
-        // console.log(response.data);
+        console.log(response.data);
         setRefreshToken(response.data.refreshToken)
-        setAccessToken(response.data.accessToken)
         setExpiresIn(response.data.expiresIn)
+        setAccessToken(response.data.accessToken)
+        
 
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err)
         //   If fail redirect to home page - Login page
-        window.location = "/"
+        //window.location = "/"
       })
   }, [code])
 
-  useEffect(() => {
-    if (!refreshToken || !expiresIn) return
+  // useEffect(() => {
+  //   if (!refreshToken || !expiresIn) return
 
-    const interval = setInterval(() => {
+  //   const interval = setInterval(() => {
 
-      axios
-      .post("http://localhost:8000/refresh", { refreshToken })
-      .then((response) => {
+  //     axios
+  //     .post("http://localhost:8000/refresh", { refreshToken })
+  //     .then((response) => {
         
-        setAccessToken(response.data.accessToken)
-        setExpiresIn(response.data.expiresIn)
+  //       setAccessToken(response.data.accessToken)
+  //       setExpiresIn(response.data.expiresIn)
 
-      })
-      .catch(() => {
-        //   If fail redirect to home page - Login page
-        window.location = "/"
-      })
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //       //   If fail redirect to home page - Login page
+  //       window.location = "/"
+  //     })
 
-    }, (expiresIn - 60) * 1000 )
+  //   }, (expiresIn - 60) * 1000 )
 
-    return () => clearInterval(interval)
+  //   return () => clearInterval(interval)
     
-  }, [refreshToken, expiresIn])
+  // }, [refreshToken, expiresIn])
 
 
   // console.log(accessToken)

@@ -1,12 +1,8 @@
-/* .movie-hero{
-    display: grid;
-    grid-template-columns: repeat(10, [col] 10%);
-    grid-template-rows: repeat(8, [row] 12.5% );
-    min-height: 600px;
-    height: 50vh;
-    width: 100%;
-    border-radius: 1em;
-} */
+.movie-hero{
+    width: 95%;
+    max-width: 1000px;
+    margin: auto;
+}
 
 .movie-media .MuiCardMedia-root{
     width: 300px;

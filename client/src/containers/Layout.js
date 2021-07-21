@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => {
     return {
         page: {
             width: '100%',
-            padding: theme.spacing(3),
+            // padding: theme.spacing(3),
             position: 'relative',
             top: 75 //push page content down same width as toolbar
         }

@@ -1,58 +1,47 @@
 import React, { Component } from 'react'
 
+import Song from '../Song'
+import { DataGrid } from '@material-ui/data-grid'
+
+
 export class Playlist extends Component {
-   componentDidMount() {
-    // spotifyApi.setAccessToken(window.localStorage.getItem('access_token'))
+    handleRowSelection = (items) => {
+        console.log(items)
+        // this.setState({
+        //     selectedTracks: items.selectionModel
+        // })
+    }
 
-    // // search tracks whose artist's name contains 'Love'
-    // spotifyApi.searchTracks('artist:Love').then(
-    //     function (data) {
-    //     console.log('Search tracks by "Love" in the artist name', data);
-    //     },
-    //     function (err) {
-    //     console.error(err);
-    //     }
-    // );
-
-
-
-
-    // const token = window.localStorage.getItem('access_token')
-
-    // this.props.soundtracks.map(soundtrack => {
-
-    // })
-
-
-
-
-    // fetch('https://api.spotify.com/v1/search?q=the%20boy%20with%20the%20arab%20strap%20artist:belle%20and%20sebastian&type=track&limit=5', {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Accept": "application/json",
-    //     'Authorization': 'Bearer ' + token
-    //   }
-    // })
-    // .then(response => response.json())
-    // .then(json => {
-    //     json.items.map(item => {
-    //         return {
-    //             artist: item.artists[0].name,
-    //             title: track.name
-    //         }
-    //     })
-    // })
-
-
-   }
 
     render() {
+
+        const columns = [
+            { field: 'name', headerName: 'Title', width: 500, editable: false },
+            { field: 'artist', headerName: 'Artist', width: 200, editable: false },
+            { field: 'time', headerName: 'Time', width: 150, editable: false },
+          ] 
+
         return (
-            <div>
+            <div style={{ height: '50vh', width: 1000, margin: 'auto' }}>
                 Playlist
+            {this.props.soundtracks.length !== 0
+            ?
+            <DataGrid
+            rows={this.props.soundtracks} columns={columns} pageSize={15} 
+            // onSelectionModelChange={(items) => this.handleRowSelection(items)}
+            // onRowDoubleClick={(item) => this.props.handlePlaySong(item.id)}
+            autoHeight
+            hideFooter
+            />
+            :
+            null
+
+            }
+            
             </div>
         )
     }
 }
 
 export default Playlist
+

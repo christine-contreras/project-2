@@ -70,7 +70,7 @@ export class Site extends Component {
       })
   }
 
-  checkMovie = () => {
+  checkToSeeIfMovieIsSaved = () => {
       if(this.state.savedMovies.length !== 0) {
         let movieSaved = this.state.savedMovies.find(movie => movie.info.id === this.state.selectedMovie.id)
 
@@ -96,8 +96,9 @@ export class Site extends Component {
             <Switch>
               <Route exact path='/movie-details' render={() => (
                   <Details
+                  spotifyToken={this.props.spotifyToken}
                   movieID={this.state.selectedMovieId}
-                  movieIsSaved={this.checkMovie()}
+                  movieIsSaved={this.checkToSeeIfMovieIsSaved()}
                   handleAddMovie={this.handleAddMovie}
                   handleRemoveMovie={this.handleRemoveMovie}/>
               )}/>
