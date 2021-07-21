@@ -10,22 +10,25 @@ export class Appbar extends Component {
         imageUrl: ''
     }
 
-    componentDidMount() {
-        fetch('https://api.spotify.com/v1/me', {
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          'Authorization': 'Bearer ' + this.props.spotifyToken
+    componentDidUpdate(prevProps) {
+        if (this.props.spotifyToken !== prevProps.spotifyToken) {
+            fetch('https://api.spotify.com/v1/me', {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    'Authorization': 'Bearer ' + this.props.spotifyToken
+                }
+                })
+                .then(response => response.json())
+                .then(json => {
+                    this.setState({
+                        name: json.display_name,
+                        imageUrl: json.images ?  json.images[0].url : ''
+                    })
+                })
         }
-      })
-      .then(response => response.json())
-      .then(json => {
-          this.setState({
-              name: json.display_name,
-              imageUrl: json.images[0].url
-          })
-      })
     }
+
     render() {
         return (
             <AppBar className="appbar" color="inherit" elevation={1}>
