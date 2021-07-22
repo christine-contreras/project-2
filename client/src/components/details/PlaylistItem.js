@@ -19,7 +19,7 @@ export default function PlaylistItem(props) {
                 </CardContent>
                 <CardActions>
                     <Button
-                    onClick={() => this.props.handleAddSongsToPlaylist(props.playlist.href)}
+                    onClick={() => props.handleAddSongsToPlaylist(props.playlist.href)}
                     color="secondary"
                     variant="contained"
                     className="btn">

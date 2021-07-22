@@ -4,6 +4,7 @@ import Playlist from '../components/details/Playlist'
 import Player from '../components/Player'
 import CreatePlaylistModal from '../components/details/CreatePlaylistModal'
 import AddToPlaylistModal from '../components/details/AddToPlaylistModal'
+import SuccessModal from '../components/details/SuccessModal'
 
 const api_key = process.env.REACT_APP_IMDB_KEY
 
@@ -22,8 +23,8 @@ export class Details extends Component {
         currentSongUris: [],
         playing: false,
         usersPlaylists: [],
-        selectedPlaylist: "",
-        addToPlaylist: false
+        addToPlaylist: false,
+        successMessage: false
     }
 
     componentDidMount() {
@@ -130,28 +131,33 @@ export class Details extends Component {
     //model actions
     handleCloseModal = () => {
         this.setState({
-            addToPlaylist: false
+            addToPlaylist: false,
+            successMessage: false
         })
     }
 
     handleAddSongsToPlaylist = (playlistLink) => {
 
-        const validSpotifyUris = this.state.currentSongUris.filter(uri => uri !== undefined)
-        const configData = {
-            "uris": validSpotifyUris
-        }
+        let validSpotifyUris = this.state.currentSongUris.filter(uri => uri !== undefined)
 
-        fetch(`${playlistLink}`, {
+        validSpotifyUris = validSpotifyUris.join()
+
+        fetch(`${playlistLink}/tracks?uris=${validSpotifyUris}`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
                 'Authorization': 'Bearer ' + this.props.spotifyToken
-            },
-            body: JSON.stringify(configData)
+            }
         })
         .then(response => response.json())
-        .then(console.log('playlist posted!'))
+        .then(data => {
+            console.log(`songs added to playlist: ${data}`)
+            this.setState({
+                addToPlaylist: false,
+                successMessage: true
+            })
+        })
     }
 
 
@@ -195,6 +201,13 @@ export class Details extends Component {
                 
                 /> 
                 : null}
+
+                {this.state.successMessage ? 
+                <SuccessModal
+                message="Songs Added To Playlist"
+                handleCloseModal={this.handleCloseModal} 
+                /> 
+                : null}     
 
             </>
             
