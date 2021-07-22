@@ -2,24 +2,24 @@ import React from 'react'
 import '../../css/PlaylistItem.css'
 import { Card, CardMedia, CardContent, CardActions, Button, Typography } from '@material-ui/core'
 
-export default function PlaylistItem(props) {
+export default function PlaylistItem({playlist, handleAddSongsToPlaylist}) {
     return (
         <Card className="flex">
             <div className="playlist-media">
                 <CardMedia
-                image={props.playlist.images[0].url}
-                title={props.playlist.name}
+                image={playlist.images[0].url}
+                title={playlist.name}
                 />
             </div>
             <div className="flex column">
                 <CardContent>
                     <Typography variant="h5" component="p">
-                        {props.playlist.name}
+                        {playlist.name}
                     </Typography>
                 </CardContent>
                 <CardActions>
                     <Button
-                    onClick={() => props.handleAddSongsToPlaylist(props.playlist.href)}
+                    onClick={() => handleAddSongsToPlaylist(playlist)}
                     color="secondary"
                     variant="contained"
                     className="btn">

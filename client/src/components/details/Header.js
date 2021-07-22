@@ -96,7 +96,7 @@ export class Header extends Component {
                                 open={Boolean(this.state.anchorEl)}
                                 onClose={this.handleClose}
                                 >
-                                    <MenuItem>Create New Playlist</MenuItem>
+                                    <MenuItem onClick={this.props.handleCreateNewPlaylist}>Create New Playlist</MenuItem>
                                     <MenuItem onClick={this.props.handleGetPlaylistsFromSpotify}>Add To Existing Playlist</MenuItem>
                                 </Menu>
                         </CardActions>

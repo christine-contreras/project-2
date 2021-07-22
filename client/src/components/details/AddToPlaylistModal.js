@@ -14,9 +14,6 @@ export class AddToPlaylistModal extends Component {
             onClose={this.props.handleCloseModal}
             closeAfterTransition
             BackdropComponent={Backdrop}
-            // BackdropProps={{
-            // timeout: 500,
-            // }}
         >
             <Fade in={true}>
             <div className="modal">

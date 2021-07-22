@@ -110,7 +110,8 @@ export class Site extends Component {
             this.setState({
                 user: {
                   name: json.display_name,
-                  imageUrl: json.images ?  json.images[0].url : ''
+                  imageUrl: json.images ?  json.images[0].url : '',
+                  id: json.id,
                 }
                 
             })

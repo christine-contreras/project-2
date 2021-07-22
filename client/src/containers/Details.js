@@ -24,7 +24,9 @@ export class Details extends Component {
         playing: false,
         usersPlaylists: [],
         addToPlaylist: false,
-        successMessage: false
+        createPlaylist: false,
+        successMessage: false,
+        selectedPlaylist: null
     }
 
     componentDidMount() {
@@ -136,13 +138,13 @@ export class Details extends Component {
         })
     }
 
-    handleAddSongsToPlaylist = (playlistLink) => {
+    handleAddSongsToPlaylist = (playlist) => {
 
         let validSpotifyUris = this.state.currentSongUris.filter(uri => uri !== undefined)
 
         validSpotifyUris = validSpotifyUris.join()
 
-        fetch(`${playlistLink}/tracks?uris=${validSpotifyUris}`, {
+        fetch(`${playlist.href}/tracks?uris=${validSpotifyUris}`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -155,8 +157,30 @@ export class Details extends Component {
             console.log(`songs added to playlist: ${data}`)
             this.setState({
                 addToPlaylist: false,
-                successMessage: true
+                successMessage: true,
+                selectedPlaylist: playlist
             })
+        })
+    }
+
+    handleCreateNewPlaylist = () => {
+        fetch(`https://api.spotify.com/v1/users/${this.props.user.id}/playlists`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                'Authorization': 'Bearer ' + this.props.spotifyToken
+            },
+            body: JSON.stringify({
+                "name": this.state.movieInfo.title,
+                "description": `${this.state.movieInfo.title} soundtracks`,
+                "public": false
+              })
+        })
+        .then(response => response.json())
+        .then(playlist => {
+            this.handleAddSongsToPlaylist(playlist)
+
         })
     }
 
@@ -177,6 +201,7 @@ export class Details extends Component {
                     handleRemoveMovie={this.props.handleRemoveMovie}
                     handlePlaySoundtrack={this.handlePlaySoundtrack}
                     handleGetPlaylistsFromSpotify={this.handleGetPlaylistsFromSpotify}
+                    handleCreateNewPlaylist={this.handleCreateNewPlaylist}
                     />
 
                     <Playlist
@@ -204,8 +229,9 @@ export class Details extends Component {
 
                 {this.state.successMessage ? 
                 <SuccessModal
-                message="Songs Added To Playlist"
+                message="Playlist Ready"
                 handleCloseModal={this.handleCloseModal} 
+                playlist={this.state.selectedPlaylist}
                 /> 
                 : null}     
 
