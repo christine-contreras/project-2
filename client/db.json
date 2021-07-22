@@ -41,7 +41,21 @@
     }
   ],
   "movies": [
-
-  ],
-  "playlist": []
+    {
+      "id": 652,
+      "info": {
+        "id": "/title/tt1022603/",
+        "image": {
+          "height": 1965,
+          "id": "/title/tt1022603/images/rm2350025728",
+          "url": "https://m.media-amazon.com/images/M/MV5BMTk5MjM4OTU1OV5BMl5BanBnXkFtZTcwODkzNDIzMw@@._V1_.jpg",
+          "width": 1275
+        },
+        "runningTimeInMinutes": 95,
+        "title": "500 Days of Summer",
+        "titleType": "movie",
+        "year": 2009
+      }
+    }
+  ]
 }

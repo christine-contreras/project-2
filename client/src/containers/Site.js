@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Layout from './Layout'
 import Home from './Home'
 import Details from './Details'
+import Movies from './Movies'
 
 export class Site extends Component {
   constructor(){
@@ -135,6 +136,14 @@ export class Site extends Component {
                   movieIsSaved={this.checkToSeeIfMovieIsSaved()}
                   handleAddMovie={this.handleAddMovie}
                   handleRemoveMovie={this.handleRemoveMovie}/>
+              )}/>
+            </Switch>
+
+            <Switch>
+              <Route exact path='/movies' render={() => (
+                  <Movies
+                  handleMovieSelection={this.handleMovieSelection}
+                  />
               )}/>
             </Switch>
           </Layout>
