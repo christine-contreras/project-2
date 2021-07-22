@@ -20,8 +20,8 @@ class Results extends Component {
         let movieArray = this.props.movies.length !== 0 ? this.props.movies : this.state.defaultMovies
 
         return (
-            <Container className="padding-top">
-                <Typography variant="h3" component="h3" gutterBottom>
+            <Container className="padding" lg>
+                <Typography variant="h3" component="h3" gutterBottom className="title">
                     {
                         this.props.movies.length !== 0
                         ?

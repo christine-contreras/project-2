@@ -32,7 +32,7 @@ export class Header extends Component {
 
         return (
             <div className="movie-hero">
-                <Card className="flex">
+                <Card className="flex card" elevation={0}>
                     <div className="movie-media">
                         {this.props.album.length !== 0 ?
                         <CardMedia

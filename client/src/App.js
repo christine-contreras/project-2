@@ -44,7 +44,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       {code ? 
       <Site spotifyToken={accessToken}/> 
       : 

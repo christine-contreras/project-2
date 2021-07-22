@@ -1,0 +1,41 @@
+@keyframes slide-left {
+    0% {
+      -webkit-transform: translateX(100px);
+              transform: translateX(100px);
+    }
+    100% {
+      -webkit-transform: translateX(-50px);
+              transform: translateX(-50px);
+    }
+  }
+
+@keyframes slide-right {
+    0% {
+      -webkit-transform: translateX(-100px);
+              transform: translateX(-100px);
+    }
+    100% {
+      -webkit-transform: translateX(50px);
+              transform: translateX(50px);
+    }
+  }
+  
+
+.circle {
+    position: absolute;
+    width: 50vw;
+    height: 50vw;
+    border-radius: 100%;
+}
+.circle.left{
+    background-color: #ccf564;
+    left: 10%;
+    animation: slide-right 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.circle.right{
+    background-color: #f037a5;
+    right: 10%;
+    opacity: .5;
+    animation: slide-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}

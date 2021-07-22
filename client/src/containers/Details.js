@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Header from '../components/details/Header'
 import Playlist from '../components/details/Playlist'
 import Player from '../components/Player'
-import CreatePlaylistModal from '../components/details/CreatePlaylistModal'
 import AddToPlaylistModal from '../components/details/AddToPlaylistModal'
 import SuccessModal from '../components/details/SuccessModal'
 

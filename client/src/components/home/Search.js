@@ -23,7 +23,7 @@ export class Search extends Component {
     render() {
         return (
             <div className="hero">
-                <Typography variant="h1" color="secondary">
+                <Typography variant="h1">
                     Search Any Movie Soundtrack
                 </Typography>
 

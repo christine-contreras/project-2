@@ -34,6 +34,7 @@ export default function Movie({movie, handleMovieSelection}) {
                     <Button
                     className="btn"
                     variant="contained"
+                    color="secondary"
                     onClick={handleClick}
                     >View Soundtracks</Button>
                 </CardActions>

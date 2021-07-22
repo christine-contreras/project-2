@@ -1,20 +1,42 @@
+@keyframes color-change-2x {
+    0% {
+      color: #c4e17b;
+    }
+    100% {
+        color: #ff72d6;
+    }
+}
+
+@keyframes opacity {
+    0% {
+      opacity: 95%;
+    }
+    100% {
+        opacity: 30%;
+    }
+}
+
 .hero{
-    background: url('https://images.unsplash.com/photo-1459233313842-cd392ee2c388?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop') no-repeat top;
-    background-size: cover;
+    /* background: url('https://images.unsplash.com/photo-1459233313842-cd392ee2c388?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop') no-repeat top;
+    background-size: cover; */
     display: grid;
     grid-template-columns: repeat(10, [col] 10%);
     grid-template-rows: repeat(8, [row] 12.5% );
     min-height: 600px;
     height: 50vh;
     width: 100%;
-    border-radius: 1em;
+    /* border-radius: 1em; */
+    background-color: #242424;
+
 }
 
 .hero .MuiTypography-root{
-    grid-column: col 2 / span 6;
+    grid-column: col 2 / span 9;
     grid-row: row 2 / span 3;
     display: flex;
     align-items: flex-end;
+    color: #ffff96;
+    animation: opacity 4s linear infinite alternate both;
 }
 
 .hero form {
