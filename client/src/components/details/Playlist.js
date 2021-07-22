@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import '../../css/Playlist.css'
 import Song from '../Song'
 import { DataGrid } from '@material-ui/data-grid'
 
@@ -27,6 +27,7 @@ export class Playlist extends Component {
             {this.props.soundtracks.length !== 0
             ?
             <DataGrid
+            className="playlist"
             rows={this.props.soundtracks} columns={columns} pageSize={15} 
             // onSelectionModelChange={(items) => this.handleRowSelection(items)}
             // onRowDoubleClick={(item) => this.props.handlePlaySong(item.id)}
