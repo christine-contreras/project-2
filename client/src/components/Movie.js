@@ -19,15 +19,15 @@ export default function Movie({movie, handleMovieSelection}) {
         xs={12} sm={12} md={4}>
             <Card className="movie-card">
                 <CardMedia
-                image={movie.image.url}
+                image={movie.info.image.url}
                 />
                 <CardContent align="center">
                     <Typography
                     className="subtitle" variant="subtitle1" color="textSecondary">
-                        {movie.year}
+                        {movie.info.year}
                     </Typography>
                     <Typography variant="h5" component="h3">
-                     {movie.title}
+                     {movie.info.title}
                     </Typography>
                 </CardContent> 
                 <CardActions>

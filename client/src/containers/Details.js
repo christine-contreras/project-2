@@ -16,7 +16,7 @@ const millisToMinutesAndSeconds = (millis) => {
 
 export class Details extends Component {
     state = {
-        movieInfo : [],
+        // movieInfo : [],
         albumInfo : [],
         spotifyTracks: [],
         currentSongUris: [],
@@ -54,7 +54,7 @@ export class Details extends Component {
             this.fetchSpotifyApiForSoundtracks(fixTrackTitles)
 
             this.setState({
-                movieInfo: json.base,
+                // movieInfo: json.base,
                 albumInfo: json.albums,
             })
         })
@@ -171,8 +171,8 @@ export class Details extends Component {
                 'Authorization': 'Bearer ' + this.props.spotifyToken
             },
             body: JSON.stringify({
-                "name": this.state.movieInfo.title,
-                "description": `${this.state.movieInfo.title} soundtracks`,
+                "name": this.props.movie.info.title,
+                "description": `${this.props.movie.info.title} soundtracks`,
                 "public": false
               })
         })
@@ -193,7 +193,7 @@ export class Details extends Component {
             <>
                 <div className="flex column padding">
                     <Header
-                    movie={this.state.movieInfo}
+                    movie={this.props.movie}
                     album={this.state.albumInfo}
                     movieIsSaved={this.props.movieIsSaved}
                     handleAddMovie={this.props.handleAddMovie}

@@ -12,7 +12,6 @@ export class Site extends Component {
     super()
     this.state = {
       user: [],
-      id: Math.floor(Math.random() * 1000),
       selectedMovie: [],
       selectedMovieId: [],
       savedMovies: [],
@@ -20,42 +19,76 @@ export class Site extends Component {
     }
   }
 
+  componentDidMount() {
+    fetch('http://localhost:3000/movies')
+    .then(res => res.json())
+    .then(savedMovies => {
+        this.setState({savedMovies})
+    })
+
+    this.fetchSpotifyApiForUser()
+}
+
+componentDidUpdate(prevProps, prevState) {
+  if (this.state.user !== prevState.user) {
+    this.fetchSpotifyApiForUser()
+  }
+}
+
+fetchSpotifyApiForUser = () => {
+  fetch('https://api.spotify.com/v1/me', {
+          headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+              'Authorization': 'Bearer ' + this.props.spotifyToken
+          }
+      })
+      .then(response => response.json())
+      .then(json => {
+          this.setState({
+              user: {
+                name: json.display_name,
+                imageUrl: json.images ?  json.images[0].url : '',
+                id: json.id,
+              }
+              
+          })
+      })
+}
+
   //home functions
   handleMovieSelection = (movie) => {
-    const id = movie.id.split('/')
+    const id = movie.info.id.split('/')
     this.setState({
         selectedMovie: movie,
         selectedMovieId: id[2]
     })
   }
 
+
   //details functions
   handleAddMovie = (movie) => {
-    const formData = {
-        id: this.state.id,
-        info: movie
-    }
     const configObject = {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(movie)
     }
     fetch('http://localhost:3000/movies', configObject)
 
     this.setState(prevState => ({
-        savedMovies: [...prevState.savedMovies, formData],
-        id: prevState.id + 1
+        savedMovies: [...prevState.savedMovies, movie],
+        // id: prevState.id + 1
     }))
     
   }
 
   handleRemoveMovie = (removeMovie) => {
-    let newMovies = this.state.savedMovies.filter(movie => removeMovie.id !== movie.info.id)
+    let newMovies = this.state.savedMovies.filter(movie => removeMovie.info.id !== movie.info.id)
 
-    let deletedMovie = this.state.savedMovies.find(movie => movie.info.id === removeMovie.id)
+    let deletedMovie = this.state.savedMovies.find(movie => movie.info.id === removeMovie.info.id)
 
     fetch(`http://localhost:3000/movies/${deletedMovie.id}`, {
         method: 'DELETE'
@@ -67,7 +100,7 @@ export class Site extends Component {
 
   checkToSeeIfMovieIsSaved = () => {
     if(this.state.savedMovies.length !== 0) {
-      let movieSaved = this.state.savedMovies.find(movie => movie.info.id === this.state.selectedMovie.id)
+      let movieSaved = this.state.savedMovies.find(movie => movie.info.id === this.state.selectedMovie.info.id)
 
       if(movieSaved === undefined) {
           return false
@@ -79,46 +112,6 @@ export class Site extends Component {
         return false
     }
 }
-
-  componentDidMount() {
-      fetch('http://localhost:3000/movies')
-      .then(res => res.json())
-      .then(json => {
-          this.setState({savedMovies: json})
-      })
-
-      this.fetchSpotifyApiForUser()
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.user !== prevState.user) {
-      this.fetchSpotifyApiForUser()
-    }
-  }
-
-
-
-  fetchSpotifyApiForUser = () => {
-    fetch('https://api.spotify.com/v1/me', {
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                'Authorization': 'Bearer ' + this.props.spotifyToken
-            }
-        })
-        .then(response => response.json())
-        .then(json => {
-            this.setState({
-                user: {
-                  name: json.display_name,
-                  imageUrl: json.images ?  json.images[0].url : '',
-                  id: json.id,
-                }
-                
-            })
-        })
-  }
-
 
   render() {
     return (
@@ -133,6 +126,7 @@ export class Site extends Component {
                   user={this.state.user}
                   spotifyToken={this.props.spotifyToken}
                   movieID={this.state.selectedMovieId}
+                  movie={this.state.selectedMovie}
                   movieIsSaved={this.checkToSeeIfMovieIsSaved()}
                   handleAddMovie={this.handleAddMovie}
                   handleRemoveMovie={this.handleRemoveMovie}/>

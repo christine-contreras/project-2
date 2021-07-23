@@ -11,13 +11,13 @@ export class Movies extends Component {
         fetch('http://localhost:3000/movies')
         .then(res => res.json())
         .then(json => {
-            const serverMovies = json.map(movie => {
-                return movie.info
+            // const serverMovies = json.map(movie => {
+            //     return movie.info
                 
-            })
+            // })
 
             this.setState({
-                movies: serverMovies
+                movies: json
             })
         })
     }

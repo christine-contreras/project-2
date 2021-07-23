@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import '../../css/Playlist.css'
-import Song from '../Song'
 import { DataGrid } from '@material-ui/data-grid'
 
 

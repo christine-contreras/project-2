@@ -5,8 +5,10 @@ const api_key = process.env.REACT_APP_IMDB_KEY
 
 export class Home extends Component {
     state = {
-        movies: []
+        movies: [],
+        id: Math.floor(Math.random() * 1000),
     }
+
     handleSearch = (search) => {
         fetch(`https://imdb8.p.rapidapi.com/title/find?q=${search}`, {
             headers: {
@@ -17,9 +19,26 @@ export class Home extends Component {
         .then(res => res.json())
         .then(json => {
             
-            const movieList = json.results.filter(movie => movie.titleType === "movie" && ("image" in movie))
+            let movieList = json.results.filter(movie => movie.titleType === "movie" && ("image" in movie))
+
+            let newMovieList = []
+
+            movieList.forEach(movie => {
+                let newMovieObject = {}
+                newMovieObject.id = this.state.id
+                newMovieObject.info = movie
+
+                newMovieList.push(newMovieObject)
+
+                this.setState(prevState => {
+                    return {
+                        id: prevState.id + 1
+                    }
+                })
+            })
+
             this.setState({
-                movies: movieList
+                movies: newMovieList,
             })
         })
     }

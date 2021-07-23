@@ -47,10 +47,10 @@ export class Header extends Component {
                     <div className="flex column">
                         <CardContent>
                             <Typography variant="h2">
-                                {this.props.movie.title}
+                                {this.props.movie.info.title}
                             </Typography>
                             <Typography variant="subtitle1">
-                                {this.props.movie.year}
+                                {this.props.movie.info.year}
                             </Typography>
                         </CardContent>
                         <CardActions>
