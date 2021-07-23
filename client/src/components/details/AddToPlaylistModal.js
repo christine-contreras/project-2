@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
+import React from 'react'
 import '../../css/Modal.css'
 import { Modal, Fade, Backdrop, Typography } from '@material-ui/core'
 import PlaylistItem from './PlaylistItem'
 
-export class AddToPlaylistModal extends Component {
-    render() {
-        return (
-            <Modal
-            
+
+
+export default function AddToPlaylistModal({handleCloseModal, handleAddSongsToPlaylist, playlists}) {
+    return (
+        <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             open={true}
-            onClose={this.props.handleCloseModal}
+            onClose={handleCloseModal}
             closeAfterTransition
             BackdropComponent={Backdrop}
         >
@@ -22,19 +22,16 @@ export class AddToPlaylistModal extends Component {
                 component="p"
                 >Choose A Playlist</Typography>
                 <ul className="playlists">
-                    {this.props.playlists.map(playlist => (
+                    {playlists.map(playlist => (
                         <PlaylistItem
                         key={playlist.id}
                         playlist={playlist}
-                        handleAddSongsToPlaylist={this.props.handleAddSongsToPlaylist}
+                        handleAddSongsToPlaylist={handleAddSongsToPlaylist}
                         />
                     ))}
                 </ul>
             </div>
             </Fade>
         </Modal>
-        )
-    }
+    )
 }
-
-export default AddToPlaylistModal

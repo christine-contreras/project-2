@@ -4,7 +4,6 @@ import { createTheme } from '@material-ui/core/styles'
 //https://material-ui.com/customization/color/#color
 const theme = createTheme({
     palette: {
-        // type: 'dark',
         primary: {
             light: '#ffff96',
             main: '#cdf564',
@@ -17,10 +16,6 @@ const theme = createTheme({
             dark: '#b90076',
             contrastText: '#fff',
           },
-          // background: {
-          //     default: '#212121',
-          //     paper: '#242424'
-          // }
     },
     typography: {
       fontFamily: "Helvetica, Arial, sans-serif",

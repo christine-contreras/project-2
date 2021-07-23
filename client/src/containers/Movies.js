@@ -4,20 +4,16 @@ import Movie from '../components/Movie'
 
 export class Movies extends Component {
     state = {
-        movies: []
+        savedMovies: []
     }
 
     componentDidMount() {
+        //fetch saved movies from server
         fetch('http://localhost:3000/movies')
         .then(res => res.json())
         .then(json => {
-            // const serverMovies = json.map(movie => {
-            //     return movie.info
-                
-            // })
-
             this.setState({
-                movies: json
+                savedMovies: json
             })
         })
     }
@@ -35,7 +31,7 @@ export class Movies extends Component {
                 alignItems="stretch"
                 >
                     { 
-                    this.state.movies.map(movie => (
+                    this.state.savedMovies.map(movie => (
                     <Movie key={movie.id} handleMovieSelection={this.props.handleMovieSelection} movie={movie}/>
                     ))
 

@@ -9,21 +9,21 @@ const useStyles = makeStyles((theme) => {
         page: {
             width: '100%',
             position: 'relative',
-            top: 70 //push page content down same width as toolbar
+            top: 70
         }
     }
 })
 
-export default function Layout(props) {
+export default function Layout({user, children}) {
     const styles = useStyles()
     return (
         <div className="flex">
             <Nav /> 
-            <Appbar user={props.user}/>
+            <Appbar user={user}/>
 
             <div className={styles.page}>
                 {/* output children  wrapped in layout on the App.js */}
-                {props.children}
+                {children}
             </div>
                 
         </div>

@@ -20,16 +20,19 @@ export class Site extends Component {
   }
 
   componentDidMount() {
+    //fetch saved movies from server
     fetch('http://localhost:3000/movies')
     .then(res => res.json())
     .then(savedMovies => {
         this.setState({savedMovies})
     })
 
+    //fetch spotify for User Info
     this.fetchSpotifyApiForUser()
 }
 
 componentDidUpdate(prevProps, prevState) {
+  //make sure to fill in user info if it didn't populate previously
   if (this.state.user !== prevState.user) {
     this.fetchSpotifyApiForUser()
   }
@@ -67,7 +70,7 @@ fetchSpotifyApiForUser = () => {
 
 
   //details functions
-  handleAddMovie = (movie) => {
+  handleAddMovieToSavedMovies = (movie) => {
     const configObject = {
       method: 'POST',
       headers: {
@@ -85,7 +88,7 @@ fetchSpotifyApiForUser = () => {
     
   }
 
-  handleRemoveMovie = (removeMovie) => {
+  handleRemoveMovieFromSavedMovies = (removeMovie) => {
     let newMovies = this.state.savedMovies.filter(movie => removeMovie.info.id !== movie.info.id)
 
     let deletedMovie = this.state.savedMovies.find(movie => movie.info.id === removeMovie.info.id)
@@ -128,7 +131,7 @@ fetchSpotifyApiForUser = () => {
                   movieID={this.state.selectedMovieId}
                   movie={this.state.selectedMovie}
                   movieIsSaved={this.checkToSeeIfMovieIsSaved()}
-                  handleAddMovie={this.handleAddMovie}
+                  handleAddMovie={this.handleRemoveMovieFromSavedMovies}
                   handleRemoveMovie={this.handleRemoveMovie}/>
               )}/>
             </Switch>

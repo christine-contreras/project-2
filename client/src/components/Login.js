@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Login(props) {
+export default function Login() {
     const styles = useStyles()
     return (
         <Grid container direction="column" justifyContent="center" alignItems="center" className={styles.hero} color="primary">

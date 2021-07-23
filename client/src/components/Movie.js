@@ -4,6 +4,7 @@ import { useHistory } from 'react-router'
 import { Card, CardMedia, CardContent, CardActions, Button ,Typography, Grid} from '@material-ui/core'
 
 export default function Movie({movie, handleMovieSelection}) {
+    //lets you push to movie details
     const history = useHistory()
 
     const handleClick = () => {

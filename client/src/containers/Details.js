@@ -7,6 +7,7 @@ import SuccessModal from '../components/details/SuccessModal'
 
 const api_key = process.env.REACT_APP_IMDB_KEY
 
+//function to conver ms to min:sec
 const millisToMinutesAndSeconds = (millis) => {
     var minutes = Math.floor(millis / 60000)
     var seconds = ((millis % 60000) / 1000).toFixed(0)
@@ -16,7 +17,6 @@ const millisToMinutesAndSeconds = (millis) => {
 
 export class Details extends Component {
     state = {
-        // movieInfo : [],
         albumInfo : [],
         spotifyTracks: [],
         currentSongUris: [],
@@ -41,20 +41,19 @@ export class Details extends Component {
         })
         .then(res => res.json())
         .then(json => {
+
+            //make sure the movie has a soundtracks
             const validSoundtracks = json.soundtracks.filter(track => ("products" in track))
 
+            //fix track titles so they follow spotify api search rules
             let fixTrackTitles = validSoundtracks.map(track => (
                 track.name.includes("'") ? {...track, name: track.name.replace(/'/g, ' ')} : track
             ))
 
-            fixTrackTitles = fixTrackTitles.filter(track => ("products" in track))
-
-            
-
+            //fetch sountracks from spotify
             this.fetchSpotifyApiForSoundtracks(fixTrackTitles)
 
             this.setState({
-                // movieInfo: json.base,
                 albumInfo: json.albums,
             })
         })
@@ -85,6 +84,7 @@ export class Details extends Component {
 
                 let newtracks = [...this.state.spotifyTracks, newTrackObject]
 
+                //map uris so player can easily play all tracks
                 let SpotifyUris = newtracks.map(track => track.id)
 
 
@@ -139,6 +139,7 @@ export class Details extends Component {
 
     handleAddSongsToPlaylist = (playlist) => {
 
+        //remove and songs that spotify couldn't find
         let validSpotifyUris = this.state.currentSongUris.filter(uri => uri !== undefined)
 
         validSpotifyUris = validSpotifyUris.join()
@@ -152,14 +153,13 @@ export class Details extends Component {
             }
         })
         .then(response => response.json())
-        .then(data => {
-            console.log(`songs added to playlist: ${data}`)
+        .then(
             this.setState({
                 addToPlaylist: false,
                 successMessage: true,
                 selectedPlaylist: playlist
             })
-        })
+        )
     }
 
     handleCreateNewPlaylist = () => {
@@ -185,7 +185,6 @@ export class Details extends Component {
 
 
     render() {
-
         const validSoundtracks = this.state.spotifyTracks.filter(track => JSON.stringify(track) !== '{}')
         const validSpotifyUris = this.state.currentSongUris.filter(uri => uri !== undefined)
 
@@ -208,8 +207,9 @@ export class Details extends Component {
                     album={this.state.albumInfo}
                     soundtracks={validSoundtracks}
                     handlePlaySong={this.handlePlaySong}
-                    />
+                        />
                 </div>
+                
                 <Player
                 spotifyToken={this.props.spotifyToken}
                 currentSongUri={validSpotifyUris}

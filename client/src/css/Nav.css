@@ -28,6 +28,5 @@
   }
   
   .active .MuiListItemIcon-root, .active .MuiListItemText-primary{
-    /* color: #f037a5; */
     opacity: .5;
   }
