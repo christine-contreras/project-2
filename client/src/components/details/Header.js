@@ -11,7 +11,7 @@ export class Header extends Component {
     }
 
     handleHeartClick = () => {
-        this.props.movieIsSaved ? this.props.handleRemoveMovie(this.props.movie) : this.props.handleAddMovie(this.props.movie)
+        this.props.movieIsSaved === true ? this.props.handleRemoveMovie(this.props.movie) : this.props.handleAddMovie(this.props.movie)
     }
 
     handleMenuClick = (event) => {

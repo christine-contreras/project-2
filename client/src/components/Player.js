@@ -1,11 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import '../css/Player.css'
 import SpotifyPlayer from 'react-spotify-web-playback'
 
 export default function Player({spotifyToken, currentSongUri, playing}) {
     const [play, setPlay] = useState(true)
-
-    useEffect(() => setPlay(true), [currentSongUri])
 
     return (
         <div className="player">

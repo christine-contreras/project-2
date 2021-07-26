@@ -64,7 +64,7 @@ export class Details extends Component {
     fetchSpotifyApiForSoundtracks = (soundtracks) => {
 
         soundtracks.forEach(track => {
-            fetch(`https://api.spotify.com/v1/search?q=track:${track.name.replace(' ', '%20')}%20artist:${track.products[0].artist.replace(' ', '%20')}&type=track&limit=5`, {
+            fetch(`https://api.spotify.com/v1/search?type=track&limit=5&q=track:${track.name.replace(' ', '%20')}%20artist:${track.products[0].artist.replace(' ', '%20')}`, {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
@@ -73,6 +73,7 @@ export class Details extends Component {
             })
             .then(response => response.json())
             .then(data => {
+
                 let newTrackObject = {}
 
                 if(data.tracks.items.length !== 0) {

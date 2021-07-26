@@ -132,8 +132,8 @@ fetchSpotifyApiForUser = () => {
                   movieID={this.state.selectedMovieId}
                   movie={this.state.selectedMovie}
                   movieIsSaved={this.checkToSeeIfMovieIsSaved()}
-                  handleAddMovie={this.handleRemoveMovieFromSavedMovies}
-                  handleRemoveMovie={this.handleRemoveMovie}/>
+                  handleAddMovie={this.handleAddMovieToSavedMovies}
+                  handleRemoveMovie={this.handleRemoveMovieFromSavedMovies}/>
               )}/>
             </Switch>
 
