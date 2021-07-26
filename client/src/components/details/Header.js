@@ -68,6 +68,8 @@ export class Header extends Component {
                             </Tooltip>
                             }
                             
+                            { this.props.premium === "premium"
+                            ?
                             <Button
                             onClick={this.props.handlePlaySoundtrack}
                             color="secondary"
@@ -75,6 +77,10 @@ export class Header extends Component {
                             className="btn" size="large">
                                 Listen Now
                             </Button>
+                            :
+                            null
+
+                            }
 
                             <Button
                             aria-controls="playlist-menu"

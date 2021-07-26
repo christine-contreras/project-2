@@ -192,6 +192,7 @@ export class Details extends Component {
             <>
                 <div className="flex column padding">
                     <Header
+                    premium={this.props.user.product}
                     movie={this.props.movie}
                     album={this.state.albumInfo}
                     movieIsSaved={this.props.movieIsSaved}

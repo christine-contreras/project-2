@@ -53,6 +53,7 @@ fetchSpotifyApiForUser = () => {
                 name: json.display_name,
                 imageUrl: json.images ?  json.images[0].url : '',
                 id: json.id,
+                product: json.product
               }
               
           })
